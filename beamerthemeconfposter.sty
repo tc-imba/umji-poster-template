@@ -196,13 +196,18 @@
 \setbeamertemplate{headline}{
  \leavevmode
  %\begin{center}
- \begin{minipage}[c][2.72in][c]{\paperwidth} 
- 	\centering
- 	\vspace{0.2in}
+ \begin{minipage}[c][2.72in][c]{\paperwidth}
+ \begin{columns}
+ \begin{column}{0.95\paperwidth}
+ 	 \raggedleft
+ 	 \vskip0in
      \usebeamercolor{title in headline}{
      \color{jblue}\titlefont\huge{\textbf{
      VM450 • Design and Manufacturing III \\[0.2in]
      \& VE450 • Major Design Experience}}}
+     \end{column}
+ \end{columns}
+ 	
      %\usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
      %\usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
  \end{minipage}
