@@ -19,9 +19,8 @@ rm PowerPointViewer.exe
 
 The diff of the official template in PowerPoint (left) and this LaTeX template (right) is shown below:
 
-<figure class="half">
-    <img src="./ppt/sample.png">
-    <img src="./main.png">
-</figure>
+PowerPoint Template             |  LaTeX Template
+:-------------------------:|:-------------------------:
+<img src="./ppt/sample.png" alt="drawing" width="500"/> | <img src="./main.png" alt="drawing" width="500"/> 
 
 
