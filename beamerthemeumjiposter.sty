@@ -5,6 +5,7 @@
 % Created by the Computational Physics and Biophysics Group at Jacobs University
 % https://teamwork.jacobs-university.de:8443/confluence/display/CoPandBiG/LaTeX+Poster
 % Modified by Nathaniel Johnston (nathaniel@nathanieljohnston.com) in August 2009
+% Modifed by tc-imba (https://github.com/tc-imba) in July 2019
 % =============================================================================
 
 \ProvidesPackage{beamerthemeconfposter}
@@ -17,7 +18,7 @@
 \RequirePackage{setspace}
 \usefonttheme{professionalfonts}
 \newcommand{\makeruleinbox}{{\usebeamercolor[bg]{block alerted title}\centering\hspace*{-0.7cm}\rule{\inboxrule}{0.5cm}}}
-\usepackage{ragged2e}
+\RequirePackage{ragged2e}
 
 % Spacing before and inside list environments to add white space before lists and between items inside lists
 \makeatletter
@@ -130,12 +131,26 @@
 
 
 
+% fonts
+\RequirePackage{fontspec}
+\setmainfont{Calibri}
+\newfontfamily\titlefont{Times New Roman}
+\newfontfamily\mainfont{Calibri}
 
+\renewcommand*{\Huge}{\fontsize{66}{66}\selectfont}
+\renewcommand*{\huge}{\fontsize{55}{55}\selectfont}
+\renewcommand*{\Large}{\fontsize{40}{40}\selectfont}
+\renewcommand*{\large}{\fontsize{34}{34}\selectfont}
+\renewcommand*{\normalsize}{\fontsize{32}{32}\selectfont}
+\renewcommand*{\small}{\fontsize{28}{28}\selectfont}
+\renewcommand*{\scriptsize}{\fontsize{24}{24}\selectfont}
 
-
-
-
-
+\RequirePackage{graphicx}
+\RequirePackage[font={small,color=jblue},justification=centering,
+labelfont={bf,small,color=jblue},skip=20pt]{caption}
+\setbeamertemplate{caption}[numbered]
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\baselinestretch}{1.15}
 
 
 
@@ -164,11 +179,11 @@
 
 % set the fonts
 \setbeamerfont{section in head/foot}{series=\bfseries}
-\setbeamerfont{block title}{series=\bfseries}
+\setbeamerfont{block title}{series=\bfseries,size=\Large}
 \setbeamerfont{block alerted title}{series=\bfseries}
 \setbeamerfont{frametitle}{series=\bfseries}
 \setbeamerfont{frametitle}{size=\Large}
-\setbeamerfont{block body}{series=\rmfamily}
+%\setbeamerfont{block body}{series=\rmfamily}
 
 % set some beamer theme options
 \setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
@@ -190,73 +205,153 @@
 \makeatletter
 \makeatother
 
+
+% page layout
+\RequirePackage{calc}
+
+
+\setlength{\paperwidth}{23.63in} % A0 width: 46.8in
+\setlength{\paperheight}{35.44in} % A0 height: 33.1in
+\setlength{\fboxrule}{2pt}
+\setlength{\fboxsep}{0pt}
+
+\newlength{\marginwidth}
+\newlength{\pagewidth}
+\newlength{\colwidth}{}
+\newlength{\twocolwidth}{}
+\setlength{\marginwidth}{0.0252\paperwidth}
+\setlength{\pagewidth}{\paperwidth-2\marginwidth-0.5\parsep}
+\setlength{\colwidth}{(\paperwidth-4\marginwidth)/3+0.5\parsep}
+\setlength{\twocolwidth}{2\colwidth+\marginwidth}
+
+\newlength{\instituteheight}
+\newlength{\instituteleftmargin}
+\newlength{\instituterightmargin}
+\newlength{\institutelogowidth}
+\newlength{\institutenamewidth}
+
+\setlength{\instituteheight}{0.0767\paperheight}
+\setlength{\instituteleftmargin}{0.0146\paperwidth}
+\setlength{\instituterightmargin}{0.0339\paperwidth}
+\setlength{\institutelogowidth}{0.36\paperwidth}
+\setlength{\institutenamewidth}{\paperwidth-\institutelogowidth-\instituteleftmargin-\instituterightmargin}
+
+\newlength{\titleheight}
+\newlength{\contentheight}
+\newlength{\footerheight}
+\setlength{\titleheight}{0.1315\paperheight}
+\setlength{\contentheight}{0.7218\paperheight}
+\setlength{\footerheight}{0.0344\paperheight}
+
+\RequirePackage{tcolorbox}
+\tcbset{colback=white,colframe=jblue,arc=0mm,boxrule=2pt}
+
+\beamersetleftmargin{0mm}
+\beamersetrightmargin{0mm}
+
+\makeatletter
+\newcommand*{\teamlogo}[1]{\gdef\@teamlogo{#1}}
+\newcommand*{\@teamlogo}{example-image-a}
+\newcommand*{\course}[1]{\gdef\@course{#1}}
+\newcommand*{\@course}{}
+\newcommand*{\sponsor}[1]{\gdef\@sponsor{#1}}
+\newcommand*{\@sponsor}{}
+\newcommand*{\advisor}[1]{\gdef\@advisor{#1}}
+\newcommand*{\@advisor}{}
+\newcommand*{\instructor}[1]{\gdef\@instructor{#1}}
+\newcommand*{\@instructor}{}
+
+
 %==============================================================================
 % build the poster title
 %==============================================================================
 \setbeamertemplate{headline}{
  \leavevmode
  %\begin{center}
- \begin{minipage}[c][2.72in][c]{\paperwidth}
- \begin{columns}
- \begin{column}{0.95\paperwidth}
- 	 \raggedleft
- 	 \vskip0in
+ \begin{minipage}[c][\instituteheight][c]{\paperwidth}
+ \hspace{\instituteleftmargin}
+ \parbox{\institutelogowidth}{\includegraphics[width=\institutelogowidth]{umjilogo.png}}
+ \parbox{\institutenamewidth}{\raggedleft
+ 	 \vskip0.2in
      \usebeamercolor{title in headline}{
-     \color{jblue}\titlefont\huge{\textbf{
-     VM450 • Design and Manufacturing III \\[0.2in]
-     \& VE450 • Major Design Experience}}}
-     \end{column}
- \end{columns}
- 	
-     %\usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
-     %\usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
+     \color{jblue}\titlefont\huge{\textbf{\@course}}}}
  \end{minipage}
- %\end{center}
-%  \begin{columns}
-%   \begin{column}{\linewidth}
-%    \vskip1cm
-%    \centering
-%    \usebeamercolor{title in headline}{\color{jblue}\Huge{\textbf{\inserttitle}}\\[0.5ex]}
-%    \usebeamercolor{author in headline}{\color{fg}\Large{\insertauthor}\\[1ex]}
-%    \usebeamercolor{institute in headline}{\color{fg}\large{\insertinstitute}\\[1ex]}
-%    \vskip1cm
-%   \end{column}
-%   \vspace{1cm}
-%  \end{columns}
-% \vspace{0.5in}
- \begin{beamercolorbox}[wd=35in,ht=0.16in]{cboxb}\end{beamercolorbox}
- \vspace{0.1in}
+ \begin{beamercolorbox}[wd=\paperwidth,ht=0.16in]{cboxb}\end{beamercolorbox}
+ \vspace{0.001\paperheight}
+ \begin{center}
+ \begin{tcolorbox}[width=\pagewidth,height=\titleheight,left*=0mm,valign=center]
+ \parbox[c]{\colwidth}{\centering\includegraphics[width=0.6\colwidth,height=0.6\titleheight]{\@teamlogo}}
+ \hspace{\marginwidth}
+ \parbox{\twocolwidth}{
+    \usebeamercolor{title in headline}{
+     \color{jblue}
+     \begin{spacing}{1}
+     {\Huge\mainfont\textbf{\inserttitle}} \medskip
+     
+     {\large\mainfont\textbf{Sponsor:} \@sponsor} \medskip
+       
+     {\large\mainfont\textbf{Team Members:} \insertauthor} \medskip
+     
+     {\large\mainfont\ifx\@advisor\empty\else \textbf{Faculty Advisor:} \@advisor \ \ \fi\textbf{Instructor:} \@instructor }
+     \end{spacing}
+   }
+ }
+ \end{tcolorbox}
+ \end{center}
+ \vspace{-0.011\paperheight}
 }
+
+\setbeamertemplate{footline}{
+ \leavevmode
+ \begin{beamercolorbox}[wd=\paperwidth,ht=0.2in]{cboxb}  
+\end{beamercolorbox}
+ \begin{minipage}[c][\footerheight][c]{\paperwidth}
+ 	\centering
+     \usebeamercolor{title in headline}{
+     \color{jblue}\titlefont\large{University of Michigan - Shanghai Jiao Tong University Joint Institute}}
+ \end{minipage}
+
+}
+
+\RequirePackage{ulem}
+\renewcommand{\ULdepth}{5pt}
 
 % Block definition
 \setbeamertemplate{block begin}
 {
-  \par\vskip\medskipamount
-  \begin{beamercolorbox}[colsep*=0ex,dp={2ex},center]{block title}
-    \vskip-0.25cm
-    \usebeamerfont{block title}\large\insertblocktitle
-    \begin{flushleft}
-    \vskip-1cm
-    \begin{tikzpicture}[remember picture,overlay]
-      \shade [inner color=gray,outer color=white]
-      (0,0) rectangle (\textwidth,0.3cm);
-    \end{tikzpicture}
-    \end{flushleft}
-  \end{beamercolorbox}
-  {\parskip0pt\par}
-  \ifbeamercolorempty[bg]{block title}
-  {}
-  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}
-  \usebeamerfont{block body}
-  \vskip-0.5cm
+  \begin{center}
+  \color{jblue}
+  \usebeamerfont{block title}\mainfont
+  \Large\uline{\insertblocktitle}
+  \end{center}
+%
+%  \par\vskip\medskipamount
+%  \begin{beamercolorbox}[colsep*=0ex,dp={2ex},center]{block title}
+%    \vskip-0.25cm
+%    \usebeamerfont{block title}\large\insertblocktitle
+%    \begin{flushleft}
+%    \vskip-1cm
+%    \begin{tikzpicture}[remember picture,overlay]
+%      \shade [inner color=gray,outer color=white]
+%      (0,0) rectangle (\textwidth,0.3cm);
+%    \end{tikzpicture}
+%    \end{flushleft}
+%  \end{beamercolorbox}
+%  {\parskip0pt\par}
+%  \ifbeamercolorempty[bg]{block title}
+%  {}
+%  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}
+%  \usebeamerfont{block body}
+%  \vskip-0.5cm
   \begin{beamercolorbox}[colsep*=0ex,vmode]{block body}
-  \justifying
+  \color{jblue}
+  \usebeamerfont{block body}\mainfont
 }
 
 \setbeamertemplate{block end}
 {
   \end{beamercolorbox}
-  \vskip\smallskipamount
+  \vskip -.5in
 }
 
 % Alert block definition (with frame)
@@ -291,3 +386,9 @@
   \end{beamercolorbox}
   \vskip\smallskipamount
 }
+
+\makeatother
+
+% ensure the size
+\setlength{\paperwidth}{23.63in}
+\setlength{\paperheight}{35.44in}
