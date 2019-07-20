@@ -8,7 +8,7 @@
 % Modifed by tc-imba (https://github.com/tc-imba) in July 2019
 % =============================================================================
 
-\ProvidesPackage{beamerthemeconfposter}
+\ProvidesPackage{beamerthemeumjiposter}
 \RequirePackage{tikz}		% for drawing the nice rounded boxes
 \usetikzlibrary{arrows,backgrounds}
 \RequirePackage[T1]{fontenc}
@@ -166,12 +166,12 @@ labelfont={bf,small,color=jblue},skip=20pt]{caption}
 \setbeamercolor{cboxr}{fg=black,bg=red}
 
 % set colors for itemize/enumerate
-\setbeamercolor{item}{fg=ngreen}
+\setbeamercolor{item}{fg=jblue}
 \setbeamercolor{item projected}{fg=white,bg=ngreen}
 
 % set colors for blocks
-\setbeamercolor{block title}{fg=ngreen,bg=white}
-\setbeamercolor{block body}{fg=black,bg=white}
+\setbeamercolor{block title}{fg=jblue,bg=white}
+\setbeamercolor{block body}{fg=jblue,bg=white}
 
 % set colors for alerted blocks (blocks with frame)
 \setbeamercolor{block alerted title}{fg=white,bg=jblue}
@@ -261,6 +261,8 @@ labelfont={bf,small,color=jblue},skip=20pt]{caption}
 \newcommand*{\instructor}[1]{\gdef\@instructor{#1}}
 \newcommand*{\@instructor}{}
 
+\let\@@magyar@captionfix\relax % this fix a bug of caption
+
 
 %==============================================================================
 % build the poster title
@@ -315,14 +317,14 @@ labelfont={bf,small,color=jblue},skip=20pt]{caption}
 
 \RequirePackage{ulem}
 \renewcommand{\ULdepth}{5pt}
+\renewcommand{\ULthickness}{2pt} 
 
 % Block definition
 \setbeamertemplate{block begin}
 {
   \begin{center}
-  \color{jblue}
-  \usebeamerfont{block title}\mainfont
-  \Large\uline{\insertblocktitle}
+  \color{jblue}\mainfont
+  \Large\textbf{\uline{\insertblocktitle}}
   \end{center}
 %
 %  \par\vskip\medskipamount
@@ -344,7 +346,7 @@ labelfont={bf,small,color=jblue},skip=20pt]{caption}
 %  \usebeamerfont{block body}
 %  \vskip-0.5cm
   \begin{beamercolorbox}[colsep*=0ex,vmode]{block body}
-  \color{jblue}
+  %\color{jblue}
   \usebeamerfont{block body}\mainfont
 }
 
